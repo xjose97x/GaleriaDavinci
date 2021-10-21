@@ -23,14 +23,9 @@ namespace GaleriaDavinci.Web.Services
             throw new NotImplementedException();
         }
 
-        public async Task<ArtPiece> GetLastArtPiece()
+        public async Task<IEnumerable<ArtPiece>> GetPaginatedArtPieces(int size, int page)
         {
-            return await _dbContext.ArtPieces.OrderByDescending(ap => ap.Created).FirstOrDefaultAsync();
+            return await _dbContext.ArtPieces.OrderByDescending(ap => ap.Created).Skip(size * (page - 1)).Take(size).ToListAsync();
         }
-
-        public async Task<IEnumerable<Review>> GetReviewsByArtPiece(int artPieceId)
-        {
-            return await _dbContext.Reviews.Where(r => r.ArtPieceId == artPieceId).ToListAsync();
-        }
-    }
+     }
 }

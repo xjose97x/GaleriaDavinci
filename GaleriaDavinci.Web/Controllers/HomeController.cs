@@ -28,11 +28,9 @@ namespace GaleriaDavinci.Controllers
             return View();
         }
 
-        public async Task<IActionResult> Privacy()
+        public IActionResult Privacy()
         {
-            ArtPiece artPiece = await _galleryService.GetLastArtPiece();
-            IEnumerable<Review> reviews = await _galleryService.GetReviewsByArtPiece(artPiece.ID);
-            return View(new PrivacyViewModel(artPiece, reviews));
+            return View();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

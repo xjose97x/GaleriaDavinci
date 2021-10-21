@@ -11,11 +11,9 @@ namespace GaleriaDavinci.Domain.Models
         public string Author { get; set; }
         public int Year { get; set; }
         public string Description { get; set; }
+        public string Url { get; set; }
         public DateTime Created { get; set; }
         public DateTime Modified { get; set; }
-
-        [MaxLength(100)]
-        public string Alain { get; set; }
 
         public virtual IEnumerable<Review> Reviews { get; set; }
     }

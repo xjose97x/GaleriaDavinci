@@ -1,0 +1,12 @@
+﻿@model GaleriaDavinci.Web.ViewModels.Gallery.GalleryViewModel
+
+<h1>Galeria :)</h1>
+<p>Pagina: @Model.Page</p>
+<p>Pagina: @Model.Size</p>
+@foreach (var artPiece in Model.ArtPieces)
+{
+<div style="border: solid 1px #000000">
+    <h4>@artPiece.Name</h4>
+    <img src="@artPiece.Url" />
+</div>
+}
