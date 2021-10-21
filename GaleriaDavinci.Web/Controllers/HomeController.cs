@@ -1,5 +1,7 @@
-﻿using GaleriaDavinci.Models;
+﻿using GaleriaDavinci.Domain.Models;
+using GaleriaDavinci.Models;
 using GaleriaDavinci.Web.Interfaces;
+using GaleriaDavinci.Web.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -26,9 +28,11 @@ namespace GaleriaDavinci.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
+        public async Task<IActionResult> Privacy()
         {
-            return View();
+            ArtPiece artPiece = await _galleryService.GetLastArtPiece();
+            IEnumerable<Review> reviews = await _galleryService.GetReviewsByArtPiece(artPiece.ID);
+            return View(new PrivacyViewModel(artPiece, reviews));
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

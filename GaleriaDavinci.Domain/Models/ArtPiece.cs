@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace GaleriaDavinci.Domain.Models
 {
@@ -12,6 +13,9 @@ namespace GaleriaDavinci.Domain.Models
         public string Description { get; set; }
         public DateTime Created { get; set; }
         public DateTime Modified { get; set; }
+
+        [MaxLength(100)]
+        public string Alain { get; set; }
 
         public virtual IEnumerable<Review> Reviews { get; set; }
     }
