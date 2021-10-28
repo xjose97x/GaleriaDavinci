@@ -1,5 +1,6 @@
 ﻿using GaleriaDavinci.Domain.Models;
 using GaleriaDavinci.Web.Interfaces;
+using GaleriaDavinci.Web.Models;
 using GaleriaDavinci.Web.ViewModels.Gallery;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
@@ -18,8 +19,8 @@ namespace GaleriaDavinci.Web.Controllers
 
         public async Task<IActionResult> Index([FromQuery] int page = 1, [FromQuery] int size = 5)
         {
-            IEnumerable<ArtPiece> artPieces = await _galleryService.GetPaginatedArtPieces(size, page);
-            return View(new GalleryViewModel(page, size, artPieces));
+            PaginatedResult<ArtPiece> artPieces = await _galleryService.GetPaginatedArtPieces(size, page);
+            return View(new GalleryViewModel(artPieces));
         }
 
         [HttpGet]

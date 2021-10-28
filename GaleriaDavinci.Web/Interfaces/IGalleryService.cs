@@ -1,5 +1,5 @@
 ﻿using GaleriaDavinci.Domain.Models;
-using System.Collections.Generic;
+using GaleriaDavinci.Web.Models;
 using System.Threading.Tasks;
 
 namespace GaleriaDavinci.Web.Interfaces
@@ -8,6 +8,6 @@ namespace GaleriaDavinci.Web.Interfaces
     {
         public Task<ArtPiece> GetArtPieceById(int id);
         public Task AddReview(int artPieceId, string authorName, int value, string comment);
-        Task<IEnumerable<ArtPiece>> GetPaginatedArtPieces(int size, int page);
+        Task<PaginatedResult<ArtPiece>> GetPaginatedArtPieces(int size, int page);
     }
 }

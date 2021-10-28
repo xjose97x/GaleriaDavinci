@@ -1,9 +1,8 @@
 ﻿using GaleriaDavinci.Domain;
 using GaleriaDavinci.Domain.Models;
 using GaleriaDavinci.Web.Interfaces;
+using GaleriaDavinci.Web.Models;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -30,9 +29,12 @@ namespace GaleriaDavinci.Web.Services
             await _dbContext.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<ArtPiece>> GetPaginatedArtPieces(int size, int page)
+        public async Task<PaginatedResult<ArtPiece>> GetPaginatedArtPieces(int size, int page)
         {
-            return await _dbContext.ArtPieces.OrderByDescending(ap => ap.Created).Skip(size * (page - 1)).Take(size).ToListAsync();
+            var content =  await _dbContext.ArtPieces.OrderByDescending(ap => ap.Created).Skip(size * (page - 1)).Take(size).ToListAsync();
+            int contentCount = await _dbContext.ArtPieces.CountAsync();
+            int pageCount = contentCount / size;
+            return new PaginatedResult<ArtPiece>(content, page, size, pageCount);
         }
      }
 }
