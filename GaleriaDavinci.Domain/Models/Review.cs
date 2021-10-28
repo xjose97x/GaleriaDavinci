@@ -10,8 +10,20 @@ namespace GaleriaDavinci.Domain.Models
         public int ArtPieceId { get; set; }
         public virtual ArtPiece ArtPiece { get; set; }
 
+        public string AuthorName { get; set; }
+
         [Range(1, 5)]
         public int Value { get; set; }
         public string Comment { get; set; }
+
+        public Review() { }
+
+        public Review(int artPieceId, string authorName, int value, string comment)
+        {
+            ArtPieceId = artPieceId;
+            AuthorName = authorName;
+            Value = value;
+            Comment = comment;
+        }
     }
 }

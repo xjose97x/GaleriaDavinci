@@ -21,5 +21,19 @@ namespace GaleriaDavinci.Web.Controllers
             IEnumerable<ArtPiece> artPieces = await _galleryService.GetPaginatedArtPieces(size, page);
             return View(new GalleryViewModel(page, size, artPieces));
         }
+
+        [HttpGet]
+        public async Task<IActionResult> ArtPiece(int id)
+        {
+            ArtPiece artPiece = await _galleryService.GetArtPieceById(id);
+            return View(new ArtPieceViewModel(artPiece));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ArtPiece(int id, ArtPieceViewModel model)
+        {
+            await _galleryService.AddReview(id, model.AuthorName, model.Value, model.Comment);
+            return await ArtPiece(id);
+        }
     }
 }

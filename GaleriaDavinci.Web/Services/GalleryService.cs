@@ -18,9 +18,16 @@ namespace GaleriaDavinci.Web.Services
             _dbContext = dbContext;
         }
 
-        public void AddReview()
+        public async Task<ArtPiece> GetArtPieceById(int id)
         {
-            throw new NotImplementedException();
+            return await _dbContext.ArtPieces.FirstOrDefaultAsync(ap => ap.ID == id);
+        }
+
+
+        public async Task AddReview(int artPieceId, string authorName, int value, string comment)
+        {
+                await _dbContext.AddAsync(new Review(artPieceId, authorName, value, comment));
+            await _dbContext.SaveChangesAsync();
         }
 
         public async Task<IEnumerable<ArtPiece>> GetPaginatedArtPieces(int size, int page)
