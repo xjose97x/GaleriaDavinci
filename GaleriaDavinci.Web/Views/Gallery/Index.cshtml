@@ -1,27 +1,36 @@
 ﻿@model GaleriaDavinci.Web.ViewModels.Gallery.GalleryViewModel
 
 <h1>Galeria</h1>
-<div class="row">
-    @foreach (var artPiece in Model.ArtPieces.Result)
-    {
-    <div class="col-4">
-        <div style="border: solid 1px #000000">
-            <h4>@artPiece.Name</h4>
-            <img class="img-fluid" src="@artPiece.Url" />
-            <a href="@Url.Action("ArtPiece", "gallery")/@artPiece.ID">CLICK ME</a>
-        </div>
+    <div class="row">
+        @foreach (var artPiece in Model.ArtPieces.Result) {
+            <div class="col-md-6 col-lg-4 py-3">
+                <div class="card">
+                    <a href="@Url.Action("ArtPiece", "gallery")/@artPiece.ID">
+                        <img src="@artPiece.Url" class="card-img-top" alt="..." style="height: 20rem; object-fit: contain;">
+                        <div class="card-body">
+                            <h5 class="card-title">@artPiece.Name</h5>
+                            <p class="card-text">@String.Join(" ", artPiece.Description.Split(' ').Take(10))</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        }
     </div>
-    }
-</div>
-<div class="mt-5">
-    <nav>
-        <ul class="pagination">
-            <li class="page-item @(Model.ArtPieces.Page == 1 ? "disabled" : "")"><a class="page-link" href="@Url.Action("Index", "Gallery")?page=@(Model.ArtPieces.Page - 1)&size=@Model.ArtPieces.Size">Anterior</a></li>
-            @for (int i = 1; i < Model.ArtPieces.PageCount + 1; i++) {
-                <li class="page-item @(i == Model.ArtPieces.Page ? "active" : "")"><a class="page-link" href="@Url.Action("Index", "Gallery")?page=@i&size=@Model.ArtPieces.Size">@i</a></li>
-            }
-            
-            <li class="page-item @(Model.ArtPieces.Page == Model.ArtPieces.PageCount ? "disabled" : "")"><a class="page-link" href="@Url.Action("Index", "Gallery")?page=@(Model.ArtPieces.Page + 1)&size=@Model.ArtPieces.Size">Siguiente</a></li>
-        </ul>
-    </nav>
-</div>
+
+    <div class="mt-5">
+        <nav>
+            <ul class="pagination">
+                <li class="page-item @(Model.ArtPieces.Page == 1 ? "disabled" : "")">
+                    <a class="page-link" href="@Url.Action("Index", "Gallery")?page=@(Model.ArtPieces.Page - 1)&size=@Model.ArtPieces.Size">Anterior</a>
+                </li>
+                @for (int i = 1; i < Model.ArtPieces.PageCount + 1; i++) {
+                    <li class="page-item @(i == Model.ArtPieces.Page ? "active" : "")">
+                        <a class="page-link" href="@Url.Action("Index", "Gallery")?page=@i&size=@Model.ArtPieces.Size">@i</a>
+                    </li>
+                }
+                <li class="page-item @(Model.ArtPieces.Page == Model.ArtPieces.PageCount ? "disabled" : "")">
+                    <a class="page-link" href="@Url.Action("Index", "Gallery")?page=@(Model.ArtPieces.Page + 1)&size=@Model.ArtPieces.Size">Siguiente</a>
+                </li>
+            </ul>
+        </nav>
+    </div>
