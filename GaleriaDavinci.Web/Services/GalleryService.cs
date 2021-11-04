@@ -34,8 +34,9 @@ namespace GaleriaDavinci.Web.Services
         {
             var content =  await _dbContext.ArtPieces.OrderByDescending(ap => ap.Created).Skip(size * (page - 1)).Take(size).ToListAsync();
             double contentCount = await _dbContext.ArtPieces.CountAsync();
-            int pageCount = (int) Math.Ceiling(contentCount / size);
-            return new PaginatedResult<ArtPiece>(content, page, size, pageCount);
+            double pageCount = contentCount / size;
+            int p = (int)Math.Ceiling(pageCount);
+            return new PaginatedResult<ArtPiece>(content, page, size, p);
         }
      }
 }
