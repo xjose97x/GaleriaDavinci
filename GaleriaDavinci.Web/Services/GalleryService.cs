@@ -46,8 +46,7 @@ namespace GaleriaDavinci.Web.Services
 
         public async Task<ArtPiece> CreateArtPiece(string name, string authorId, int year, string description, MemoryStream file)
         {
-            string base64Image = Convert.ToBase64String(file.ToArray());
-            ArtPiece artPiece = new ArtPiece(name, authorId, year, description, base64Image);
+            ArtPiece artPiece = new ArtPiece(name, authorId, year, description, MemoryStreamToBase64Image(file));
             await _dbContext.AddAsync(artPiece);
             await _dbContext.SaveChangesAsync();
             return artPiece;
@@ -64,8 +63,7 @@ namespace GaleriaDavinci.Web.Services
             artPiece.Description = description;
             if (file != null)
             {
-                string base64Image = Convert.ToBase64String(file.ToArray());
-                artPiece.Url = base64Image;
+                artPiece.Url = MemoryStreamToBase64Image(file);
             }
             await _dbContext.SaveChangesAsync();
             return artPiece;
@@ -79,6 +77,13 @@ namespace GaleriaDavinci.Web.Services
                 throw new ArgumentNullException();
             }
             _dbContext.Remove(artPiece);
+        }
+
+        private string MemoryStreamToBase64Image(MemoryStream stream)
+        {
+            string base64Image = Convert.ToBase64String(stream.ToArray());
+            base64Image = "data:image/png;base64," + base64Image;
+            return base64Image;
         }
     }
 }

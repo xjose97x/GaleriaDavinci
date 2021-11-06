@@ -48,21 +48,30 @@ namespace GaleriaDavinci.Web.Controllers
         }
 
         [HttpGet]
-        public IActionResult EditArtPiece(int id)
+        public async Task<IActionResult> EditArtPiece(int id)
         {
-            return View();
+            ArtPiece artPiece = await _galleryService.GetArtPieceById(id);
+            EditArtPieceViewModel model = new EditArtPieceViewModel(artPiece.Name, artPiece.Year, artPiece.Description, artPiece.Url);
+            return View(model);
         }
 
         [HttpPost]
         public async Task<IActionResult> EditArtPiece(int id, EditArtPieceViewModel model)
         {
             string userId = _userManager.GetUserId(User);
-            using (var fileStream = model.File.OpenReadStream())
-            using (MemoryStream memoryStream = new MemoryStream())
+            if (model.File != null)
             {
-                await fileStream.CopyToAsync(memoryStream);
-                await _galleryService.EditArtPiece(id, model.Name, model.Year, model.Description, memoryStream);
+                using (var fileStream = model.File.OpenReadStream())
+                using (MemoryStream memoryStream = new MemoryStream())
+                {
+                    await fileStream.CopyToAsync(memoryStream);
+                    await _galleryService.EditArtPiece(id, model.Name, model.Year, model.Description, memoryStream);
+                }
+            } else
+            {
+                await _galleryService.EditArtPiece(id, model.Name, model.Year, model.Description, null);
             }
+
             return RedirectToAction("Index", "Author");
         }
 
