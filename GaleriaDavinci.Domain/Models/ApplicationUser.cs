@@ -10,12 +10,17 @@ namespace GaleriaDavinci.Domain.Models
 
         public virtual ICollection<ArtPiece> ArtPieces { get; set; }
 
+
         public ApplicationUser(string email, string firstName, string lastName)
         {
             Email = email;
             UserName = email;
             FirstName = firstName;
             LastName = lastName;
+        }
+
+        public ApplicationUser()
+        {
         }
     }
 }

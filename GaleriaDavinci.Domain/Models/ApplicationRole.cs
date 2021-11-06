@@ -4,5 +4,13 @@ namespace GaleriaDavinci.Domain.Models
 {
     public class ApplicationRole : IdentityRole
     {
+        public ApplicationRole() { }
+
+        public ApplicationRole(string id, string roleName)
+        {
+            Id = id;
+            Name = roleName;
+            NormalizedName = roleName;
+        }
     }
 }
