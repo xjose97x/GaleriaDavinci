@@ -2,12 +2,13 @@
 using GaleriaDavinci.Web.Interfaces;
 using GaleriaDavinci.Web.Models;
 using GaleriaDavinci.Web.ViewModels.Gallery;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace GaleriaDavinci.Web.Controllers
 {
+    [Authorize]
     public class GalleryController : Controller
     {
         private readonly IGalleryService _galleryService;
