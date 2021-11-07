@@ -6,14 +6,10 @@ namespace GaleriaDavinci.Web.ViewModels.Gallery
     public class ArtPieceViewModel
     {
         public ArtPiece ArtPiece { get; set; }
-
-        [Required]
-        [Display(Name = "Nombre")]
-        public string AuthorName { get; set; }
         
         [Required]
-        [Range(1, 5)]
-        [Display(Name = "Valor")]
+        [Range(0, 5)]
+        [Display(Name = "Puntuación")]
         public int Value { get; set; }
         
         [Required]

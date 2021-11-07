@@ -11,47 +11,50 @@
     </div>
 </div>
 
-<h1>Comentarios</h1>
+<h4>Comentarios</h4>
+@if (User.Identity.IsAuthenticated) { 
+    @using (Html.BeginForm()) {
+        @Html.HiddenFor(model => model.ArtPiece)
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-@using (Html.BeginForm())
-{
-    @Html.HiddenFor(model => model.ArtPiece)
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    <div class="form-group">
-        @Html.LabelFor(model => model.AuthorName, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.AuthorName, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.AuthorName, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Value, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-6">
+                @Html.EditorFor(model => model.Value, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Value, "", new { @class = "text-danger" })
+            </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.Value, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.Value, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.Value, "", new { @class = "text-danger" })
-        </div>
-    </div>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.Comment, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.TextAreaFor(model => model.Comment, new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.Comment, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Comment, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-6">
+                @Html.TextAreaFor(model => model.Comment, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Comment, "", new { @class = "text-danger" })
+            </div>
         </div>
-    </div>
 
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Enviar" class="btn btn-primary" />
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Enviar" class="btn btn-primary" />
+            </div>
         </div>
-    </div>
+    }
 }
 
-@foreach(var review in Model.ArtPiece.Reviews)
-{
-    <div class="card">
-        <h3>@review.AuthorName</h3>
-        <p>@review.Comment</p>
+
+@foreach (var review in Model.ArtPiece.Reviews) {
+<div class="card col-md-6 my-3 p-3">
+    <div>
+        @for (int i = 0; i < 5; i++) {
+            while (i < review.Value) {
+                <span class="fas fa-star" style="color: #ffd800;"></span>
+                i++;
+            }
+            <span class="far fa-star" style="color: #808080"></span>
+        }
     </div>
+    <h5>@review.AuthorName</h5>
+    <p>@review.Comment</p>
+</div>
 }

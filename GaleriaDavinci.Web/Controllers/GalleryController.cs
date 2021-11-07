@@ -38,7 +38,7 @@ namespace GaleriaDavinci.Web.Controllers
                 model.ArtPiece = artPiece;
                 return View(model);
             }
-            await _galleryService.AddReview(id, model.AuthorName, model.Value, model.Comment);
+            await _galleryService.AddReview(id, User.Identity.Name, model.Value, model.Comment);
             return await ArtPiece(id);
         }
     }

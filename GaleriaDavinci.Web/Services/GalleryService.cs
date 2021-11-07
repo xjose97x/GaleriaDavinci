@@ -32,7 +32,7 @@ namespace GaleriaDavinci.Web.Services
 
         public async Task AddReview(int artPieceId, string authorName, int value, string comment)
         {
-                await _dbContext.AddAsync(new Review(artPieceId, authorName, value, comment));
+            await _dbContext.AddAsync(new Review(artPieceId, authorName, value, comment));
             await _dbContext.SaveChangesAsync();
         }
 
