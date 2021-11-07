@@ -5,7 +5,7 @@
 @{
 }
 
-<h2>Index</h2>
+<h2>Mis Obras de arte</h2>
 
 <p>
     @Html.ActionLink("Create New", "CreateArtPiece")
@@ -47,7 +47,7 @@
                 </td>
                 <td>
                     @Html.ActionLink("Ver", "ArtPiece", "Gallery", new { id = item.ID }) |
-                    @Html.ActionLink("Edit", "EditArtPiece", new { id = item.ID }) |
+                    @Html.ActionLink("Editar", "EditArtPiece", new { id = item.ID }) |
                     <a href="#" onclick="openDeleteModal(@item.ID)">Eliminar</a>
                 </td>
             </tr>
