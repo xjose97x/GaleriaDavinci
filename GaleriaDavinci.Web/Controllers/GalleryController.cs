@@ -2,13 +2,11 @@
 using GaleriaDavinci.Web.Interfaces;
 using GaleriaDavinci.Web.Models;
 using GaleriaDavinci.Web.ViewModels.Gallery;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
 namespace GaleriaDavinci.Web.Controllers
 {
-    [Authorize]
     public class GalleryController : Controller
     {
         private readonly IGalleryService _galleryService;
@@ -34,6 +32,12 @@ namespace GaleriaDavinci.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> ArtPiece(int id, ArtPieceViewModel model)
         {
+            if (!ModelState.IsValid)
+            {
+                ArtPiece artPiece = await _galleryService.GetArtPieceById(id);
+                model.ArtPiece = artPiece;
+                return View(model);
+            }
             await _galleryService.AddReview(id, model.AuthorName, model.Value, model.Comment);
             return await ArtPiece(id);
         }

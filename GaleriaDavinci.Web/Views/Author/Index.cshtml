@@ -46,6 +46,7 @@
                     @Html.DisplayFor(modelItem => item.Year)
                 </td>
                 <td>
+                    @Html.ActionLink("Ver", "ArtPiece", "Gallery", new { id = item.ID }) |
                     @Html.ActionLink("Edit", "EditArtPiece", new { id = item.ID }) |
                     <a href="#" onclick="openDeleteModal(@item.ID)">Eliminar</a>
                 </td>

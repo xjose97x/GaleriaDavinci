@@ -15,11 +15,13 @@ namespace GaleriaDavinci.Web.Controllers
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly RoleManager<ApplicationRole> _roleManager;
 
-        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
+        public AccountController(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, RoleManager<ApplicationRole> roleManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _roleManager = roleManager;
         }
 
         [HttpGet]
@@ -89,6 +91,8 @@ namespace GaleriaDavinci.Web.Controllers
                 ModelState.AddModelError(string.Empty, "Fallo el registro");
                 return View(model);
             }
+            ApplicationUser user = await _userManager.Users.Where(u => u.Email == model.Email).SingleOrDefaultAsync();
+            await _userManager.AddToRoleAsync(user, SystemRoles.AUTHOR);
             await _signInManager.PasswordSignInAsync(model.Email, model.Password, true, lockoutOnFailure: true);
             return RedirectToAction("Index", "Gallery");
         }
