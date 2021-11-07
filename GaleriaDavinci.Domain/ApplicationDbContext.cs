@@ -4,6 +4,9 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace GaleriaDavinci.Domain
 {
@@ -14,6 +17,48 @@ namespace GaleriaDavinci.Domain
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
+        }
+
+        public override int SaveChanges()
+        {
+            SetAuditProperties();
+            return base.SaveChanges();
+        }
+
+        public override int SaveChanges(bool acceptAllChangesOnSuccess)
+        {
+            SetAuditProperties();
+            return base.SaveChanges(acceptAllChangesOnSuccess);
+        }
+
+        public override Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default)
+        {
+            SetAuditProperties();
+            return base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
+        }
+
+        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+        {
+            SetAuditProperties();
+            return base.SaveChangesAsync(cancellationToken);
+        }
+
+        private void SetAuditProperties()
+        {
+            var auditEntities = ChangeTracker.Entries().Where(x => x.Entity is IAuditableEntity && (x.State == EntityState.Added || x.State == EntityState.Modified));
+            foreach (var entity in auditEntities)
+            {
+                var now = DateTime.Now;
+                if (entity.State == EntityState.Added)
+                {
+                    ((IAuditableEntity)entity.Entity).Created = now;
+                    ((IAuditableEntity)entity.Entity).Modified = now;
+                }
+                else if (entity.State == EntityState.Modified)
+                {
+                    ((IAuditableEntity)entity.Entity).Modified = now;
+                }
+            }
         }
 
 

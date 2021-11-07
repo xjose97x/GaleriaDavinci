@@ -36,12 +36,20 @@ namespace GaleriaDavinci.Web.Services
             await _dbContext.SaveChangesAsync();
         }
 
-        public async Task<PaginatedResult<ArtPiece>> GetPaginatedArtPieces(int size, int page)
+        public async Task<PaginatedResult<ArtPiece>> GetPaginatedArtPieces(int size, int page, string search = null)
         {
-            var content =  await _dbContext.ArtPieces.OrderByDescending(ap => ap.Created).Skip(size * (page - 1)).Take(size).ToListAsync();
+            IQueryable<ArtPiece> query = _dbContext.ArtPieces;
             double contentCount = await _dbContext.ArtPieces.CountAsync();
+            if (!string.IsNullOrWhiteSpace(search))
+            {
+                query = query.Where(ap => ap.Name.Contains(search) || ap.Description.Contains(search) ||
+                                                 ap.Year.ToString().Contains(search) || ap.Author.FirstName.Contains(search) ||
+                                                 ap.Author.LastName.Contains(search));
+                contentCount = await query.CountAsync();
+            }
+            var content =  await query.OrderByDescending(ap => ap.Created).Skip(size * (page - 1)).Take(size).ToListAsync();
             int pageCount = (int)Math.Ceiling(contentCount / size);
-            return new PaginatedResult<ArtPiece>(content, page, size, pageCount);
+            return new PaginatedResult<ArtPiece>(content, page, size, search, pageCount);
         }
 
         public async Task<ArtPiece> CreateArtPiece(string name, string authorId, int year, string description, MemoryStream file)

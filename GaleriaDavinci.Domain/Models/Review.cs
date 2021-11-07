@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace GaleriaDavinci.Domain.Models
 {
-    public class Review
+    public class Review : IAuditableEntity
     {
         public int ID { get; set; }
 
@@ -15,6 +15,9 @@ namespace GaleriaDavinci.Domain.Models
         [Range(1, 5)]
         public int Value { get; set; }
         public string Comment { get; set; }
+
+        public DateTime Created { get; set; }
+        public DateTime Modified { get; set; }
 
         public Review() { }
 

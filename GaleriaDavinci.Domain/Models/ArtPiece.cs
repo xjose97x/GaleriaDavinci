@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace GaleriaDavinci.Domain.Models
 {
-    public class ArtPiece
+    public class ArtPiece : IAuditableEntity
     {
         public int ID { get; set; }
         public string Name { get; set; }

@@ -16,9 +16,9 @@ namespace GaleriaDavinci.Web.Controllers
             _galleryService = galleryService;
         }
 
-        public async Task<IActionResult> Index([FromQuery] int page = 1, [FromQuery] int size = 6)
+        public async Task<IActionResult> Index([FromQuery] int page = 1, [FromQuery] int size = 6, [FromQuery] string search = null)
         {
-            PaginatedResult<ArtPiece> artPieces = await _galleryService.GetPaginatedArtPieces(size, page);
+            PaginatedResult<ArtPiece> artPieces = await _galleryService.GetPaginatedArtPieces(size, page, search);
             return View(new GalleryViewModel(artPieces));
         }
 

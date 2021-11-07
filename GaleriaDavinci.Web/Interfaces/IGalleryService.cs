@@ -11,7 +11,7 @@ namespace GaleriaDavinci.Web.Interfaces
         public Task<ArtPiece> GetArtPieceById(int id);
         public Task<IEnumerable<ArtPiece>> GetArtPieceByAuthor(string authorId);
         public Task AddReview(int artPieceId, string authorName, int value, string comment);
-        Task<PaginatedResult<ArtPiece>> GetPaginatedArtPieces(int size, int page);
+        Task<PaginatedResult<ArtPiece>> GetPaginatedArtPieces(int size, int page, string search = null);
 
         public Task<ArtPiece> CreateArtPiece(string name, string authorId, int year, string description, MemoryStream file);
         public Task<ArtPiece> EditArtPiece(int artPieceId, string name, int year, string description, MemoryStream file);

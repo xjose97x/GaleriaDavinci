@@ -1,6 +1,12 @@
 ﻿@model GaleriaDavinci.Web.ViewModels.Gallery.GalleryViewModel
 
 <h1>Galeria</h1>
+    <div>
+        <label>Buscar:
+            <input type="search" id="inputBusqueda">
+        </label>
+        <button onclick="buscar()">Enviar</button>
+    </div>
     <div class="row">
         @foreach (var artPiece in Model.ArtPieces.Result) {
             <div class="col-md-6 col-lg-4 py-3">
@@ -21,16 +27,26 @@
         <nav>
             <ul class="pagination">
                 <li class="page-item @(Model.ArtPieces.Page == 1 ? "disabled" : "")">
-                    <a class="page-link" href="@Url.Action("Index", "Gallery")?page=@(Model.ArtPieces.Page - 1)&size=@Model.ArtPieces.Size">Anterior</a>
+                    <a class="page-link" href="@Url.Action("Index", "Gallery")?page=@(Model.ArtPieces.Page - 1)&size=@Model.ArtPieces.Size&search=@Model.ArtPieces.Search">Anterior</a>
                 </li>
                 @for (int i = 1; i < Model.ArtPieces.PageCount + 1; i++) {
                     <li class="page-item @(i == Model.ArtPieces.Page ? "active" : "")">
-                        <a class="page-link" href="@Url.Action("Index", "Gallery")?page=@i&size=@Model.ArtPieces.Size">@i</a>
+                        <a class="page-link" href="@Url.Action("Index", "Gallery")?page=@i&size=@Model.ArtPieces.Size&search=@Model.ArtPieces.Search">@i</a>
                     </li>
                 }
                 <li class="page-item @(Model.ArtPieces.Page == Model.ArtPieces.PageCount ? "disabled" : "")">
-                    <a class="page-link" href="@Url.Action("Index", "Gallery")?page=@(Model.ArtPieces.Page + 1)&size=@Model.ArtPieces.Size">Siguiente</a>
+                    <a class="page-link" href="@Url.Action("Index", "Gallery")?page=@(Model.ArtPieces.Page + 1)&size=@Model.ArtPieces.Size&search=@Model.ArtPieces.Search">Siguiente</a>
                 </li>
             </ul>
         </nav>
     </div>
+
+
+@section Scripts {
+    <script>
+        function buscar() {
+            const valorBusqueda = $('#inputBusqueda').val();
+            window.location.href = "@Url.Action("Index", "Gallery")?page=@(Model.ArtPieces.Page)&size=@Model.ArtPieces.Size&search=" + valorBusqueda;
+        }
+    </script>
+}
