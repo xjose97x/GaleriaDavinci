@@ -77,6 +77,7 @@ namespace GaleriaDavinci.Web.Services
                 throw new ArgumentNullException();
             }
             _dbContext.Remove(artPiece);
+            await _dbContext.SaveChangesAsync();
         }
 
         private string MemoryStreamToBase64Image(MemoryStream stream)

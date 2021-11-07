@@ -47,16 +47,57 @@
                 </td>
                 <td>
                     @Html.ActionLink("Edit", "EditArtPiece", new { id = item.ID }) |
-                    @Html.ActionLink("Delete", "DeleteArtPiece", new { id = item.ID })
+                    <a href="#" onclick="openDeleteModal(@item.ID)">Eliminar</a>
                 </td>
             </tr>
         }
     </tbody>
 </table>
+
+
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Eliminar obra de arte</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                ¿Estas seguro que deseas eliminar esta obra de arte?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                <button type="button" class="btn btn-primary" onclick="deleteArtPiece()">Confirmar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 @section Scripts{
     <script>
+        var selectedArtPiece = undefined;
         $(document).ready(function () {
             $('#artPieceTable').DataTable();
         });
+
+        function openDeleteModal(id) {
+            selectedArtPiece = id;
+            $('#deleteModal').modal('show')
+        }
+
+        function deleteArtPiece() {
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("DeleteArtPiece", "Author")/" + selectedArtPiece,
+                success: function (data) {
+                    location.reload()
+                },
+                error: function (xhr, textStatus, error) {
+                    alert("No se pudo eliminar con exito la obra de arte");
+                }
+            });
+        }
     </script>
 }
