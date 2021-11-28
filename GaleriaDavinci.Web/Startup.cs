@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using SendGrid.Extensions.DependencyInjection;
 using System.Collections.Generic;
 using System.Globalization;
 
@@ -46,7 +47,15 @@ namespace GaleriaDavinci.Web
             }).AddEntityFrameworkStores<ApplicationDbContext>()
               .AddDefaultTokenProviders();
 
+            string sendGridApiKey = Configuration.GetValue<string>("SENDGRID_API_KEY");
+            if (!string.IsNullOrEmpty(sendGridApiKey))
+            {
+                services.AddSendGrid(options => options.ApiKey = sendGridApiKey);
+                services.AddSingleton<IEmailService, SendgridService>();
+            }
+
             services.AddScoped<IGalleryService, GalleryService>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
