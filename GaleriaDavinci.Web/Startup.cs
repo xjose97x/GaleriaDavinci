@@ -32,7 +32,9 @@ namespace GaleriaDavinci.Web
                 options.UseLazyLoadingProxies()
                        .UseSqlServer(Configuration.GetConnectionString("DefaultConnection"), b => b.MigrationsAssembly("GaleriaDavinci.Domain")));
 
-            services.AddControllersWithViews();
+            services.AddControllersWithViews().AddNewtonsoftJson(options =>
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+            );
 
             services.AddIdentity<ApplicationUser, ApplicationRole>(options =>
             {
