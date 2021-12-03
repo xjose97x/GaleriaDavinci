@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GaleriaDavinci.Shared.Dto;
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace GaleriaDavinci.Domain.Models
@@ -27,6 +28,11 @@ namespace GaleriaDavinci.Domain.Models
             AuthorName = authorName;
             Value = value;
             Comment = comment;
+        }
+
+        public ReviewDto ConvertToDto()
+        {
+            return new ReviewDto(ID, ArtPieceId, AuthorName, Value, Comment, Created);
         }
     }
 }

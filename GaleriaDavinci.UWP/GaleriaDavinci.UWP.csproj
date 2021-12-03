@@ -154,6 +154,12 @@
       <Version>6.2.12</Version>
     </PackageReference>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\GaleriaDavinci.Shared\GaleriaDavinci.Shared.csproj">
+      <Project>{80262674-925d-468d-98e4-77751b059452}</Project>
+      <Name>GaleriaDavinci.Shared</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

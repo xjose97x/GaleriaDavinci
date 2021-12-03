@@ -69,7 +69,7 @@ namespace GaleriaDavinci.Web.Services
             artPiece.Name = name;
             artPiece.Year = year;
             artPiece.Description = description;
-            if (file != null)
+            if (file != null && file.Length > 0)
             {
                 artPiece.Url = MemoryStreamToBase64Image(file);
             }

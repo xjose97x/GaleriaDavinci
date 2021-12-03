@@ -20,7 +20,7 @@ namespace GaleriaDavinci.Web.Services
         {
             var email = new SendGridMessage
             {
-                From = new EmailAddress("joseignacioescudero+galeriadavinci@gmail.com"),
+                From = new EmailAddress("jose.escudero@udla.edu.ec"),
                 Subject = subject,
                 Contents = new List<Content>
                 {
@@ -33,6 +33,9 @@ namespace GaleriaDavinci.Web.Services
             {
                 throw new Exception("Failed to send email");
             }
+
+            var result = await response.Body.ReadAsStringAsync();
+            int x = 4;
         }
     }
 }

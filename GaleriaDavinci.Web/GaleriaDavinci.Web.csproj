@@ -23,6 +23,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\GaleriaDavinci.Domain\GaleriaDavinci.Domain.csproj" />
+    <ProjectReference Include="..\GaleriaDavinci.Shared\GaleriaDavinci.Shared.csproj" />
   </ItemGroup>
 
 </Project>
