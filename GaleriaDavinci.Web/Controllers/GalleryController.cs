@@ -1,6 +1,6 @@
 ﻿using GaleriaDavinci.Domain.Models;
+using GaleriaDavinci.Shared.Model;
 using GaleriaDavinci.Web.Interfaces;
-using GaleriaDavinci.Web.Models;
 using GaleriaDavinci.Web.ViewModels.Gallery;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;

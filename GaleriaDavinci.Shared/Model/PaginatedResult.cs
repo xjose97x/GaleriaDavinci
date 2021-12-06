@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace GaleriaDavinci.Web.Models
+namespace GaleriaDavinci.Shared.Model
 {
     public class PaginatedResult<T>
     {

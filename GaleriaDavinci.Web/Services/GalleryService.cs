@@ -1,7 +1,7 @@
 ﻿using GaleriaDavinci.Domain;
 using GaleriaDavinci.Domain.Models;
+using GaleriaDavinci.Shared.Model;
 using GaleriaDavinci.Web.Interfaces;
-using GaleriaDavinci.Web.Models;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;

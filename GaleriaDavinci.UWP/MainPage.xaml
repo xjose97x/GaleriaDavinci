@@ -2,13 +2,21 @@
     x:Class="GaleriaDavinci.UWP.MainPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:GaleriaDavinci.UWP"
+    xmlns:models="using:GaleriaDavinci.UWP.Models"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-
+    <Page.Resources>
+        <DataTemplate x:Key="GalleryItemTemplate" x:DataType="models:GalleryItem">
+            <Image Stretch="UniformToFill" Source="{x:Bind Bitmap}" Width="190" Height="130"/>
+        </DataTemplate>
+    </Page.Resources>
     <Grid>
-
+        <StackPanel>
+            <GridView x:Name="GridView" ItemTemplate="{StaticResource GalleryItemTemplate}">
+            </GridView>
+            
+        </StackPanel>
     </Grid>
 </Page>

@@ -1,5 +1,5 @@
 ﻿using GaleriaDavinci.Domain.Models;
-using GaleriaDavinci.Web.Models;
+using GaleriaDavinci.Shared.Model;
 
 namespace GaleriaDavinci.Web.ViewModels.Gallery
 {

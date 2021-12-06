@@ -1,5 +1,5 @@
 ﻿using GaleriaDavinci.Domain.Models;
-using GaleriaDavinci.Web.Models;
+using GaleriaDavinci.Shared.Model;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
