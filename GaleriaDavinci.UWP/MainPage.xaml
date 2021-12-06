@@ -9,14 +9,30 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
     <Page.Resources>
         <DataTemplate x:Key="GalleryItemTemplate" x:DataType="models:GalleryItem">
-            <Image Stretch="UniformToFill" Source="{x:Bind Bitmap}" Width="190" Height="130"/>
+            <Image Stretch="UniformToFill" Source="{x:Bind Bitmap}" Width="500" />
         </DataTemplate>
     </Page.Resources>
     <Grid>
-        <StackPanel>
-            <GridView x:Name="GridView" ItemTemplate="{StaticResource GalleryItemTemplate}">
-            </GridView>
-            
-        </StackPanel>
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock Text="Galeria Davinci"/>
+                <GridView x:Name="GridView" ItemTemplate="{StaticResource GalleryItemTemplate}">
+                    <GridView.ItemContainerStyle>
+                        <Style TargetType="GridViewItem">
+                            <Setter Property="Margin" Value="12, 12, 12, 12"/>
+                        </Style>
+                    </GridView.ItemContainerStyle>
+                    <GridView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <ItemsWrapGrid x:Name="MaxItemsWrapGrid"
+                               MaximumRowsOrColumns="3"
+                               Orientation="Horizontal"/>
+                        </ItemsPanelTemplate>
+                    </GridView.ItemsPanel>
+
+                </GridView>
+
+            </StackPanel>
+        </ScrollViewer>
     </Grid>
 </Page>
