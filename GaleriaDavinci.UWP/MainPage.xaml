@@ -16,6 +16,11 @@
         <ScrollViewer VerticalScrollBarVisibility="Auto">
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                 <TextBlock Text="Galeria Davinci"/>
+                <StackPanel Orientation="Horizontal" Margin="0,20,0,20">
+
+                    <TextBox x:Name="SearchInput" Header="Buscar: " Width="300" HorizontalAlignment="Left"/>
+                    <Button Content="Enviar" Click="Search_Click" VerticalAlignment="Bottom" Margin="10,0,0,0"/>
+                </StackPanel>
                 <GridView x:Name="GridView" ItemTemplate="{StaticResource GalleryItemTemplate}">
                     <GridView.ItemContainerStyle>
                         <Style TargetType="GridViewItem">

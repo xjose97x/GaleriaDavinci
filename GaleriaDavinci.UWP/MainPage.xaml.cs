@@ -2,8 +2,8 @@
 using GaleriaDavinci.UWP.Models;
 using GaleriaDavinci.UWP.Services;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
+using System.Threading.Tasks;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
@@ -17,8 +17,8 @@ namespace GaleriaDavinci.UWP
     /// </summary>
     public sealed partial class MainPage : Page
     {
-        public ObservableCollection<GalleryItem> ObservableGalleryItems;
-        
+        public int Page = 1;
+        public int Size = 6;
         private GalleryApiService galleryApiService = new GalleryApiService();
 
         public MainPage()
@@ -30,14 +30,25 @@ namespace GaleriaDavinci.UWP
         {
             base.OnNavigatedTo(e);
             var paginatedArtPieces = await galleryApiService.GetArtPieces();
+            await RefreshGallery(paginatedArtPieces.Result);
+        }
+
+        private async void Search_Click(object sender, RoutedEventArgs e)
+        {
+            string searchValue = SearchInput.Text;
+            var paginatedArtPieces = await galleryApiService.GetArtPieces(Page, Size, searchValue);
+            await RefreshGallery(paginatedArtPieces.Result);
+        }
+
+        private async Task RefreshGallery(IEnumerable<ArtPieceDto> artPieces)
+        {
             List<GalleryItem> galleryItems = new List<GalleryItem>();
-            foreach(var ap in paginatedArtPieces.Result)
+            foreach (ArtPieceDto ap in artPieces)
             {
                 BitmapImage image = await Helpers.Base64ToBitMapImage(ap.Url);
                 galleryItems.Add(new GalleryItem(ap, image));
             }
-            ObservableGalleryItems = new ObservableCollection<GalleryItem>(galleryItems);
-            GridView.ItemsSource = ObservableGalleryItems;
+            GridView.ItemsSource = galleryItems;
         }
     }
 }
