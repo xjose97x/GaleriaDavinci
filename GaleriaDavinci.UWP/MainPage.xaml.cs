@@ -39,5 +39,9 @@ namespace GaleriaDavinci.UWP
             ObservableGalleryItems = new ObservableCollection<GalleryItem>(galleryItems);
             GridView.ItemsSource = ObservableGalleryItems;
         }
+
+        private void GridView_ItemClick(object sender, ItemClickEventArgs e) {
+            this.Frame.Navigate(typeof(DetailArtPiece), e.ClickedItem);
+        }
     }
 }

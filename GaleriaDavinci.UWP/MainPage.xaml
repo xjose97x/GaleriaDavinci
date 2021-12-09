@@ -16,7 +16,7 @@
         <ScrollViewer VerticalScrollBarVisibility="Auto">
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                 <TextBlock Text="Galeria Davinci"/>
-                <GridView x:Name="GridView" ItemTemplate="{StaticResource GalleryItemTemplate}">
+                <GridView x:Name="GridView" ItemTemplate="{StaticResource GalleryItemTemplate}" ItemClick="GridView_ItemClick" IsItemClickEnabled="True">
                     <GridView.ItemContainerStyle>
                         <Style TargetType="GridViewItem">
                             <Setter Property="Margin" Value="12, 12, 12, 12"/>

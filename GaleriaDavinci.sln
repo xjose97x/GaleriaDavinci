@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GaleriaDavinci.Domain", "Ga
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GaleriaDavinci.UWP", "GaleriaDavinci.UWP\GaleriaDavinci.UWP.csproj", "{91924042-F478-4D7E-8ACE-24054950658B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GaleriaDavinci.Shared", "GaleriaDavinci.Shared\GaleriaDavinci.Shared.csproj", "{80262674-925D-468D-98E4-77751B059452}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GaleriaDavinci.Shared", "GaleriaDavinci.Shared\GaleriaDavinci.Shared.csproj", "{80262674-925D-468D-98E4-77751B059452}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -65,8 +65,9 @@ Global
 		{9D180E81-61F2-453D-99B6-0960D18F2ACE}.Release|x64.Build.0 = Release|Any CPU
 		{9D180E81-61F2-453D-99B6-0960D18F2ACE}.Release|x86.ActiveCfg = Release|Any CPU
 		{9D180E81-61F2-453D-99B6-0960D18F2ACE}.Release|x86.Build.0 = Release|Any CPU
-		{91924042-F478-4D7E-8ACE-24054950658B}.Debug|Any CPU.ActiveCfg = Debug|x86
-		{91924042-F478-4D7E-8ACE-24054950658B}.Debug|Any CPU.Build.0 = Debug|x86
+		{91924042-F478-4D7E-8ACE-24054950658B}.Debug|Any CPU.ActiveCfg = Debug|x64
+		{91924042-F478-4D7E-8ACE-24054950658B}.Debug|Any CPU.Build.0 = Debug|x64
+		{91924042-F478-4D7E-8ACE-24054950658B}.Debug|Any CPU.Deploy.0 = Debug|x64
 		{91924042-F478-4D7E-8ACE-24054950658B}.Debug|ARM.ActiveCfg = Debug|ARM
 		{91924042-F478-4D7E-8ACE-24054950658B}.Debug|ARM.Build.0 = Debug|ARM
 		{91924042-F478-4D7E-8ACE-24054950658B}.Debug|ARM.Deploy.0 = Debug|ARM
