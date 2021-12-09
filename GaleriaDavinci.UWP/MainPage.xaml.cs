@@ -2,8 +2,8 @@
 using GaleriaDavinci.UWP.Models;
 using GaleriaDavinci.UWP.Services;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
+using System.Threading.Tasks;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
@@ -17,8 +17,9 @@ namespace GaleriaDavinci.UWP
     /// </summary>
     public sealed partial class MainPage : Page
     {
-        public ObservableCollection<GalleryItem> ObservableGalleryItems;
-        
+        public int Page = 1;
+        public int Size = 6;
+
         private GalleryApiService galleryApiService = new GalleryApiService();
 
         public MainPage()
@@ -29,15 +30,42 @@ namespace GaleriaDavinci.UWP
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            var paginatedArtPieces = await galleryApiService.GetArtPieces();
+            await RefreshGallery();
+        }
+
+        private async void Search_Click(object sender, RoutedEventArgs e)
+        {
+            string searchValue = SearchInput.Text;
+            await RefreshGallery(searchValue);
+        }
+
+        private async Task RefreshGallery(string search = null)
+        {
+            var paginatedArtPieces = await galleryApiService.GetArtPieces(Page, Size, search);
+
             List<GalleryItem> galleryItems = new List<GalleryItem>();
-            foreach(var ap in paginatedArtPieces.Result)
+            foreach (ArtPieceDto ap in paginatedArtPieces.Result)
             {
                 BitmapImage image = await Helpers.Base64ToBitMapImage(ap.Url);
                 galleryItems.Add(new GalleryItem(ap, image));
             }
-            ObservableGalleryItems = new ObservableCollection<GalleryItem>(galleryItems);
-            GridView.ItemsSource = ObservableGalleryItems;
+            GridView.ItemsSource = galleryItems;
+
+            NextButton.IsEnabled = Page < paginatedArtPieces.PageCount;
+            PrevButton.IsEnabled = Page > 1;
+        }
+
+        private async void NextButton_Click(object sender, RoutedEventArgs e)
+        {
+            Page++;
+            await RefreshGallery();
+
+        }
+
+        private async void PrevButton_Click(object sender, RoutedEventArgs e)
+        {
+            Page--;
+            await RefreshGallery();
         }
 
         private void GridView_ItemClick(object sender, ItemClickEventArgs e) {

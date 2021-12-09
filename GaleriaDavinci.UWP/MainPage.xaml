@@ -16,6 +16,11 @@
         <ScrollViewer VerticalScrollBarVisibility="Auto">
             <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
                 <TextBlock Text="Galeria Davinci"/>
+                <StackPanel Orientation="Horizontal" Margin="0,20,0,20">
+
+                    <TextBox x:Name="SearchInput" Header="Buscar: " Width="300" HorizontalAlignment="Left"/>
+                    <Button Content="Enviar" Click="Search_Click" VerticalAlignment="Bottom" Margin="10,0,0,0"/>
+                </StackPanel>
                 <GridView x:Name="GridView" ItemTemplate="{StaticResource GalleryItemTemplate}" ItemClick="GridView_ItemClick" IsItemClickEnabled="True">
                     <GridView.ItemContainerStyle>
                         <Style TargetType="GridViewItem">
@@ -31,7 +36,10 @@
                     </GridView.ItemsPanel>
 
                 </GridView>
-
+                <StackPanel Orientation="Horizontal">
+                    <Button x:Name="PrevButton" Content="&lt;" VerticalAlignment="Bottom" IsDoubleTapEnabled="False" IsHoldingEnabled="False" IsRightTapEnabled="False" IsEnabled="False" Margin="0,0,20,0" Click="PrevButton_Click"/>
+                    <Button x:Name="NextButton" Content="&gt;" VerticalAlignment="Bottom" IsDoubleTapEnabled="False" IsHoldingEnabled="False" IsRightTapEnabled="False" IsEnabled="False" RenderTransformOrigin="0.5,0.512" Click="NextButton_Click"/>
+                </StackPanel>
             </StackPanel>
         </ScrollViewer>
     </Grid>
