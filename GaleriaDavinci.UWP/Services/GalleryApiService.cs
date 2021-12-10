@@ -48,7 +48,7 @@ namespace GaleriaDavinci.UWP.Services
 
         public async Task<ArtPieceDto> GetArtPiece(int id)
         {
-            HttpResponseMessage response = await httpClient.GetAsync($"GalleryItems/${id}");
+            HttpResponseMessage response = await httpClient.GetAsync($"GalleryItems/{id}");
 
             if (!response.IsSuccessStatusCode)
             {
@@ -114,7 +114,7 @@ namespace GaleriaDavinci.UWP.Services
                 JsonConvert.SerializeObject(new BuyArtPieceDto(buyerEmail)),
                 Encoding.UTF8,
                 "application/json");
-            HttpResponseMessage response = await httpClient.PostAsync($"GalleryItems/{id}", content);
+            HttpResponseMessage response = await httpClient.PostAsync($"GalleryItems/{id}/buy", content);
             if (!response.IsSuccessStatusCode)
             {
                 throw new Exception(response.ReasonPhrase);

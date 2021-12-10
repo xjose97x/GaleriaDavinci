@@ -30,6 +30,7 @@ namespace GaleriaDavinci.UWP
         {
             this.InitializeComponent();
             this.Suspending += OnSuspending;
+            RequestedTheme = ApplicationTheme.Light;
         }
 
         /// <summary>
@@ -95,6 +96,15 @@ namespace GaleriaDavinci.UWP
             var deferral = e.SuspendingOperation.GetDeferral();
             //TODO: Save application state and stop any background activity
             deferral.Complete();
+        }
+
+        public static bool TryGoBack() {
+            Frame rootFrame = Window.Current.Content as Frame;
+            if (rootFrame.CanGoBack) {
+                rootFrame.GoBack();
+                return true;
+            }
+            return false;
         }
     }
 }

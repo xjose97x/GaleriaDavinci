@@ -11,27 +11,58 @@
 
     <Page.Resources>
         <DataTemplate x:Key="ReviewTemplate" x:DataType="dto:ReviewDto">
-            <StackPanel>
-                <TextBlock x:Name="reviewScore" Text="{x:Bind Value}"></TextBlock>
-                <TextBlock x:Name="reviewUser" Text="{x:Bind AuthorName}"></TextBlock>
-                <TextBlock x:Name="reviewComment" Text="{x:Bind Comment}"></TextBlock>
+            <StackPanel Orientation="Horizontal" Margin="0, 20, 0, 0">
+                <StackPanel Orientation="Vertical" Margin="0, 0, 30, 0">
+                    <RatingControl x:Name="reviewScore" IsReadOnly="True" Value="{x:Bind Value}"></RatingControl>
+                    <TextBlock x:Name="reviewDate" Text="{x:Bind Created}"></TextBlock>
+                </StackPanel>
+                <StackPanel Orientation="Vertical">
+                    <TextBlock x:Name="reviewUser" Text="{x:Bind AuthorName}" FontWeight="Bold" FontSize="12"></TextBlock>
+                    <TextBlock x:Name="reviewComment" Text="{x:Bind Comment}"></TextBlock>
+                </StackPanel>
             </StackPanel>
         </DataTemplate>
     </Page.Resources>
-    
+
     <Grid>
-        
-        <StackPanel Orientation="Horizontal">
-            <Image x:Name="artPieceImage" Stretch="UniformToFill" Width="500" />
-            <StackPanel>
-                <TextBlock x:Name="artPieceName"></TextBlock>
-                <TextBlock x:Name="artPieceDescription"></TextBlock>
+        <StackPanel>
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                <Button x:Name="BackButton" Click="BackButton_Click"
+                    Style="{StaticResource NavigationBackButtonNormalStyle}"
+                    IsEnabled="{x:Bind Frame.CanGoBack, Mode=OneWay}" 
+                    ToolTipService.ToolTip="Back">
+                </Button>
+                <TextBlock x:Name="artPieceName" VerticalAlignment="Center" FontWeight="Bold" FontSize="15"></TextBlock>
+            </StackPanel>
+            <StackPanel HorizontalAlignment="Center" Margin="0, 20">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Image x:Name="artPieceImage" Stretch="Uniform" Width="500" />
+                    <StackPanel Width="500" Margin="50, 0">
+                        <TextBlock FontWeight="Bold" FontSize="15">Descripción</TextBlock>
+                        <TextBlock x:Name="artPieceDescription"></TextBlock>
+                        <StackPanel Orientation="Horizontal">
+                            <Button x:Name="buyButton" Click="buyButton_Click">Comprar!</Button>
+                            <TextBox x:Name="buyerEmailTextBox" PlaceholderText="Ingresa tu e-mail" Width="200" Margin="20, 0, 0, 0">
+                                <FlyoutBase.AttachedFlyout>
+                                    <Flyout x:Name="emailFlyout">
+                                        <StackPanel>
+                                            <TextBlock Style="{StaticResource BaseTextBlockStyle}">
+                                                Ingresa tu correo electrónico.
+                                            </TextBlock>
+                                        </StackPanel>
+                                    </Flyout>
+                                </FlyoutBase.AttachedFlyout>
+                            </TextBox>
+                        </StackPanel>
+                    </StackPanel>
+                </StackPanel>
+                <StackPanel Margin="0, 30">
+                    <TextBlock FontWeight="Bold" FontSize="15">Comentarios</TextBlock>
+                    <ListView x:Name="reviewsListView"
+                        ItemTemplate="{StaticResource ReviewTemplate}"
+                        SelectionMode="None"></ListView>
+                </StackPanel>
             </StackPanel>
         </StackPanel>
-        <TextBlock>Comentarios</TextBlock>
-        <ListView x:Name="reviewsListView"
-                  ItemTemplate="{StaticResource ReviewTemplate}"
-                  Width="500"
-                  Height="400"></ListView>
     </Grid>
 </Page>

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Media.Imaging;
 
@@ -18,5 +19,13 @@ namespace GaleriaDavinci.UWP
             }
             return image;
         }
-    }
+
+        public static bool IsValidEmail(string email) {
+            if (string.IsNullOrWhiteSpace(email) || !Regex.IsMatch(email, @"\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*")) {
+                return false;
+            }
+            return true;
+        }
+        
+}
 }

@@ -7,6 +7,8 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -26,20 +28,40 @@ namespace GaleriaDavinci.UWP {
     public sealed partial class DetailArtPiece : Page {
 
         private GalleryItem galleryItem;
+        private ArtPieceDto artPiece;
         private ObservableCollection<ReviewDto> reviews;
+        private GalleryApiService galleryApiService = new GalleryApiService();
 
         public DetailArtPiece() {
             this.InitializeComponent();
         }
 
-        protected override void OnNavigatedTo(NavigationEventArgs e) {
+        protected override async void OnNavigatedTo(NavigationEventArgs e) {
+
             galleryItem = e.Parameter as GalleryItem;
-            artPieceImage.Source = galleryItem.Bitmap;
-            artPieceName.Text = galleryItem.Name;
-            artPieceDescription.Text = galleryItem.Description;
-            reviews = new ObservableCollection<ReviewDto>(galleryItem.Reviews);
+
+            artPiece = await galleryApiService.GetArtPiece(galleryItem.ID);
+            artPieceImage.Source = await Helpers.Base64ToBitMapImage(artPiece.Url);
+
+            artPieceName.Text = artPiece.Name;
+            artPieceDescription.Text = artPiece.Description;
+            reviews = new ObservableCollection<ReviewDto>(artPiece.Reviews);
             reviewsListView.ItemsSource = reviews;
         }
 
+        private void BackButton_Click(object sender, RoutedEventArgs e) {
+            App.TryGoBack();
+        }
+
+        private async void buyButton_Click(object sender, RoutedEventArgs e) {
+
+            string email = buyerEmailTextBox.Text;
+
+            if (!Helpers.IsValidEmail(email)) {
+                emailFlyout.ShowAt(buyerEmailTextBox);
+                return;
+            }
+            await galleryApiService.BuyArtPiece(artPiece.ID, email);
+        }
     }
 }
