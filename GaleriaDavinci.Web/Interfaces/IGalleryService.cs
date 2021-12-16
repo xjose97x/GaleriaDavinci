@@ -16,5 +16,7 @@ namespace GaleriaDavinci.Web.Interfaces
         public Task<ArtPiece> CreateArtPiece(string name, string authorId, int year, string description, MemoryStream file);
         public Task<ArtPiece> EditArtPiece(int artPieceId, string name, int year, string description, MemoryStream file);
         public Task DeleteArtPiece(int artPieceId);
+
+        public Task<IEnumerable<ApplicationUser>> GetAllUsers();
     }
 }

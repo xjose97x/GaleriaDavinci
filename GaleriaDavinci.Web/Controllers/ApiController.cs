@@ -3,6 +3,7 @@ using GaleriaDavinci.Shared.Model;
 using GaleriaDavinci.Web.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -98,6 +99,13 @@ namespace GaleriaDavinci.Web.Controllers
             string content = $"Un visitante cuyo correo es {dto.BuyerEmail}, desea comprar su obra. Por favor llamenos si desea obtener mas informacion";
             await _emailService.SendEmail(authorEmail, subject, content);
             return Ok();
+        }
+
+        [HttpGet("Authors")]
+        public async Task<ActionResult<IEnumerable<AuthorDto>>> GetAuthors()
+        {
+            var users = await _galleryService.GetAllUsers();
+            return Ok(users.Select(u => new AuthorDto(u.Id, $"{u.FirstName} {u.LastName}")));
         }
     }
 }

@@ -21,6 +21,7 @@
                     <TextBox x:Name="SearchInput" Header="Buscar: " Width="300" HorizontalAlignment="Left"/>
                     <Button Content="Enviar" Click="Search_Click" VerticalAlignment="Bottom" Margin="10,0,0,0"/>
                 </StackPanel>
+                <Button Click="NewArtPiece_Click">Crear nueva obra</Button>  
                 <GridView x:Name="GridView" ItemTemplate="{StaticResource GalleryItemTemplate}" ItemClick="GridView_ItemClick" IsItemClickEnabled="True">
                     <GridView.ItemContainerStyle>
                         <Style TargetType="GridViewItem">

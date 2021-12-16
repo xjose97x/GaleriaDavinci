@@ -71,5 +71,10 @@ namespace GaleriaDavinci.UWP
         private void GridView_ItemClick(object sender, ItemClickEventArgs e) {
             this.Frame.Navigate(typeof(DetailArtPiece), e.ClickedItem);
         }
+
+        private void NewArtPiece_Click(object sender, RoutedEventArgs e)
+        {
+            Frame.Navigate(typeof(AddArtPiece), e.OriginalSource);
+        }
     }
 }

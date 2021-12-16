@@ -88,6 +88,11 @@ namespace GaleriaDavinci.Web.Services
             await _dbContext.SaveChangesAsync();
         }
 
+        public async Task<IEnumerable<ApplicationUser>> GetAllUsers()
+        {
+            return await _dbContext.Users.ToListAsync();
+        }
+
         private string MemoryStreamToBase64Image(MemoryStream stream)
         {
             string base64Image = Convert.ToBase64String(stream.ToArray());
