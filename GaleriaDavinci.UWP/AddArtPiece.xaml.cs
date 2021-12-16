@@ -110,7 +110,7 @@ namespace GaleriaDavinci.UWP
             }
             using (var imageStream = await selectedImage.OpenStreamForReadAsync())
             {
-                await _galleryApiService.CreateArtPiece(name, author.ID, Convert.ToInt32(year), description, imageStream);
+                await _galleryApiService.CreateArtPiece(name, author.ID, Convert.ToInt32(year), description, selectedImage.Name, imageStream);
             }
             var successDialog = new MessageDialog("Creado con exito!", "Alerta");
             await successDialog.ShowAsync();

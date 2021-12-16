@@ -60,16 +60,19 @@ namespace GaleriaDavinci.UWP.Services
             return JsonConvert.DeserializeObject<ArtPieceDto>(body);
         }
 
-        public async Task<int> CreateArtPiece(string name, string authorId, int year, string description, Stream imageStream)
+        public async Task<int> CreateArtPiece(string name, string authorId, int year, string description, string imageName, Stream imageStream)
         {
 
+            StreamContent fileStream = new StreamContent(imageStream);
+            fileStream.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data") { Name = "file", FileName = imageName };
+            fileStream.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
             MultipartFormDataContent requestContent = new MultipartFormDataContent
             {
                 { new StringContent(name), "name" },
                 { new StringContent(authorId), "authorId" },
                 { new StringContent(year.ToString()), "year" },
                 { new StringContent(description), "description" },
-                { new StreamContent(imageStream), "file" }
+                { fileStream, "file" }
             };
 
             HttpResponseMessage response = await httpClient.PostAsync($"GalleryItems", requestContent);
