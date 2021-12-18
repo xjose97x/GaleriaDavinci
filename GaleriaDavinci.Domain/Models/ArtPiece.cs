@@ -37,7 +37,7 @@ namespace GaleriaDavinci.Domain.Models
 
         public ArtPieceDto ConvertToDto()
         {
-            return new ArtPieceDto(ID, Name, $"{Author.FirstName} {Author.LastName}", Year, Description, Url, Reviews.Select(r => r.ConvertToDto()));
+            return new ArtPieceDto(ID, Name, $"{Author.FirstName} {Author.LastName}", AuthorId, Year, Description, Url, Reviews.Select(r => r.ConvertToDto()));
         }
     }
 }

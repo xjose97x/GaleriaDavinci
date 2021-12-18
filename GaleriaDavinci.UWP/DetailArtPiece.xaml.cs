@@ -65,7 +65,7 @@ namespace GaleriaDavinci.UWP {
         }
 
         private void Button_Click(object sender, RoutedEventArgs e) {
-            Frame.Navigate(typeof(EditArtPiece), e.OriginalSource);
+            Frame.Navigate(typeof(EditArtPiece), artPiece);
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e) {

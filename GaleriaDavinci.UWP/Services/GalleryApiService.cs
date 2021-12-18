@@ -84,22 +84,29 @@ namespace GaleriaDavinci.UWP.Services
             return int.Parse(body);
         }
 
-        public async Task EditArtPiece(int id, string name, int year, string description, Stream imageStream)
+        public async Task EditArtPiece(int id, string name, string authorId, int year, string description, string imageName, Stream imageStream)
         {
-
             MultipartFormDataContent requestContent = new MultipartFormDataContent
             {
                 { new StringContent(name), "name" },
+                { new StringContent(authorId), "authorId" },
                 { new StringContent(year.ToString()), "year" },
                 { new StringContent(description), "description" },
-                { new StreamContent(imageStream), "file" }
             };
 
-            HttpResponseMessage response = await httpClient.PostAsync($"GalleryItems/{id}", requestContent);
+            if (imageName != null && imageStream != null) {
+                StreamContent fileStream = new StreamContent(imageStream);
+                fileStream.Headers.ContentDisposition = new ContentDispositionHeaderValue("form-data") { Name = "file", FileName = imageName };
+                fileStream.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
+                requestContent.Add(fileStream, "file");
+            }           
+
+            HttpResponseMessage response = await httpClient.PutAsync($"GalleryItems/{id}", requestContent);
             if (!response.IsSuccessStatusCode)
             {
                 throw new Exception(response.ReasonPhrase);
             }
+
         }
 
         public async Task DeleteArtPiece(int id)

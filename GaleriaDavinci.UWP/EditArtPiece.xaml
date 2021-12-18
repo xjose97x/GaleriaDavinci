@@ -5,10 +5,45 @@
     xmlns:local="using:GaleriaDavinci.UWP"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:Microsoft.UI.Xaml.Controls"
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-
+        <StackPanel Name="mypanel">
+            <StackPanel>
+                <Button x:Name="BackButton" Click="BackButton_Click"
+                        Style="{StaticResource NavigationBackButtonNormalStyle}"
+                        IsEnabled="{x:Bind Frame.CanGoBack, Mode=OneWay}" 
+                        ToolTipService.ToolTip="Back">
+                </Button>
+            </StackPanel>
+            <ScrollViewer VerticalScrollMode="Enabled" Height="{Binding ElementName=mypanel, Path=ActualHeight}">
+                <StackPanel HorizontalAlignment="Center">
+                    <TextBlock FontWeight="Bold" FontSize="50">Editar Obra de arte</TextBlock>
+                    <StackPanel Margin="0 50 0 50">
+                        <TextBox Header="Nombre de obra:" Name="NameInput" />
+                        <ComboBox Header="Autor de obra:" PlaceholderText="Seleccione autor" Width="144" Name="AuthorsComboBox"></ComboBox>
+                        <controls:NumberBox
+                            Header="Seleccione el año:"
+                            Value="2022"
+                            SpinButtonPlacementMode="Compact"
+                            SmallChange="10"
+                            LargeChange="100"
+                            Minimum="0"
+                            Maximum="2022"
+                            Name="YearInput" />
+                        <TextBox Header="Descripcion:"
+                            TextWrapping="Wrap" AcceptsReturn="True" MinHeight="75" Name="DescriptionInput" />
+                        <StackPanel Orientation="Horizontal" Margin="0 20 0 20">
+                            <Button Content="Seleccionar imagen" Click="ImageSelectButton_Click" />
+                            <TextBlock VerticalAlignment="Center" Text=""  Name="ImagePath"/>
+                        </StackPanel>
+                        <Image Stretch="Uniform" Width="500" Name="ImagePreview" Margin="0 20 0 30" />
+                        <Button HorizontalAlignment="Center" Content="Confirmar" Click="Submit_Click" />
+                    </StackPanel>
+                </StackPanel>
+            </ScrollViewer>
+        </StackPanel>
     </Grid>
 </Page>
