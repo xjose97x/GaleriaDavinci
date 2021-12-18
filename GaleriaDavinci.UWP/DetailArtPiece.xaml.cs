@@ -63,5 +63,13 @@ namespace GaleriaDavinci.UWP {
             }
             await galleryApiService.BuyArtPiece(artPiece.ID, email);
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e) {
+            Frame.Navigate(typeof(EditArtPiece), e.OriginalSource);
+        }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e) {
+
+        }
     }
 }

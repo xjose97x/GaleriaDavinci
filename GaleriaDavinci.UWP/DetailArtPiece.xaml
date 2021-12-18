@@ -34,35 +34,44 @@
                 </Button>
                 <TextBlock x:Name="artPieceName" VerticalAlignment="Center" FontWeight="Bold" FontSize="15"></TextBlock>
             </StackPanel>
-            <StackPanel HorizontalAlignment="Center" Margin="0, 20">
-                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <StackPanel HorizontalAlignment="Center" Orientation="Vertical">
                     <Image x:Name="artPieceImage" Stretch="Uniform" Width="500" />
-                    <StackPanel Width="500" Margin="50, 0">
-                        <TextBlock FontWeight="Bold" FontSize="15">Descripción</TextBlock>
-                        <TextBlock x:Name="artPieceDescription"></TextBlock>
-                        <StackPanel Orientation="Horizontal">
-                            <Button x:Name="buyButton" Click="buyButton_Click">Comprar!</Button>
-                            <TextBox x:Name="buyerEmailTextBox" PlaceholderText="Ingresa tu e-mail" Width="200" Margin="20, 0, 0, 0">
-                                <FlyoutBase.AttachedFlyout>
-                                    <Flyout x:Name="emailFlyout">
-                                        <StackPanel>
-                                            <TextBlock Style="{StaticResource BaseTextBlockStyle}">
+                    <StackPanel Margin="0, 30" BorderBrush="#FF999999" BorderThickness="1,1,1,1" Padding="20">
+                        <TextBlock FontWeight="Bold" FontSize="15">Comentarios</TextBlock>
+                        <ListView x:Name="reviewsListView"
+                        ItemTemplate="{StaticResource ReviewTemplate}"
+                        SelectionMode="None"></ListView>
+                    </StackPanel>
+                </StackPanel>
+                <StackPanel Orientation="Vertical">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <StackPanel Width="400" Margin="50, 0" VerticalAlignment="Stretch">
+                            <StackPanel BorderBrush="#FF999999" BorderThickness="1" Margin="0 0 0 50">
+                                <TextBlock FontWeight="Bold" FontSize="15">Descripción</TextBlock>
+                                <TextBlock x:Name="artPieceDescription"></TextBlock>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Button x:Name="buyButton" Click="buyButton_Click">Comprar!</Button>
+                                <TextBox x:Name="buyerEmailTextBox" PlaceholderText="Ingresa tu e-mail" Width="200" Margin="20, 0, 0, 0">
+                                    <FlyoutBase.AttachedFlyout>
+                                        <Flyout x:Name="emailFlyout">
+                                            <StackPanel>
+                                                <TextBlock Style="{StaticResource BaseTextBlockStyle}">
                                                 Ingresa tu correo electrónico.
-                                            </TextBlock>
-                                        </StackPanel>
-                                    </Flyout>
-                                </FlyoutBase.AttachedFlyout>
-                            </TextBox>
+                                                </TextBlock>
+                                            </StackPanel>
+                                        </Flyout>
+                                    </FlyoutBase.AttachedFlyout>
+                                </TextBox>
+                            </StackPanel>
+                            <Button Click="Button_Click">Editar</Button>
+                            <Button Click="Button_Click_1">Eliminar</Button>
                         </StackPanel>
                     </StackPanel>
                 </StackPanel>
-                <StackPanel Margin="0, 30">
-                    <TextBlock FontWeight="Bold" FontSize="15">Comentarios</TextBlock>
-                    <ListView x:Name="reviewsListView"
-                        ItemTemplate="{StaticResource ReviewTemplate}"
-                        SelectionMode="None"></ListView>
-                </StackPanel>
             </StackPanel>
+            
         </StackPanel>
     </Grid>
 </Page>
