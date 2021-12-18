@@ -11,24 +11,25 @@
 
     <Grid>
         <StackPanel>
-            <Button x:Name="BackButton" Click="BackButton_Click"
+            <StackPanel>
+                <Button x:Name="BackButton" Click="BackButton_Click"
                         Style="{StaticResource NavigationBackButtonNormalStyle}"
                         IsEnabled="{x:Bind Frame.CanGoBack, Mode=OneWay}" 
                         ToolTipService.ToolTip="Back">
-            </Button>
-        </StackPanel>
-        <ScrollViewer>
-            <StackPanel HorizontalAlignment="Center">
-                <TextBlock Text="Agregar obra de arte" FontWeight="Bold" FontSize="50" />
-                <StackPanel Margin="0 50 0 50">
-                    <TextBox Header="Nombre de obra:" Name="NameInput" />
-                    <ComboBox Header="Autor de obra:" PlaceholderText="Seleccione autor" Width="144" Name="AuthorsComboBox">
-                        <x:String>Blue</x:String>
-                        <x:String>Green</x:String>
-                        <x:String>Red</x:String>
-                        <x:String>Yellow</x:String>
-                    </ComboBox>
-                    <controls:NumberBox
+                </Button>
+            </StackPanel>
+            <ScrollViewer>
+                <StackPanel HorizontalAlignment="Center">
+                    <TextBlock Text="Agregar obra de arte" FontWeight="Bold" FontSize="50" />
+                    <StackPanel Margin="0 50 0 50">
+                        <TextBox Header="Nombre de obra:" Name="NameInput" />
+                        <ComboBox Header="Autor de obra:" PlaceholderText="Seleccione autor" Width="144" Name="AuthorsComboBox">
+                            <x:String>Blue</x:String>
+                            <x:String>Green</x:String>
+                            <x:String>Red</x:String>
+                            <x:String>Yellow</x:String>
+                        </ComboBox>
+                        <controls:NumberBox
                     Header="Seleccione el año:"
                     Value="2022"
                     SpinButtonPlacementMode="Compact"
@@ -37,16 +38,17 @@
                     Minimum="0"
                     Maximum="2022"
                     Name="YearInput" />
-                    <TextBox Header="Descripcion:"
+                        <TextBox Header="Descripcion:"
                     TextWrapping="Wrap" AcceptsReturn="True" MinHeight="75" Name="DescriptionInput" />
-                    <StackPanel Orientation="Horizontal" Margin="0 20 0 20">
-                        <Button Content="Seleccionar imagen" Click="ImageSelectButton_Click" />
-                        <TextBlock VerticalAlignment="Center" Text=""  Name="ImagePath"/>
+                        <StackPanel Orientation="Horizontal" Margin="0 20 0 20">
+                            <Button Content="Seleccionar imagen" Click="ImageSelectButton_Click" />
+                            <TextBlock VerticalAlignment="Center" Text=""  Name="ImagePath"/>
+                        </StackPanel>
+                        <Image Stretch="Uniform" Width="500" Name="ImagePreview" Margin="0 20 0 30" />
+                        <Button Content="Crear" Click="Submit_Click" />
                     </StackPanel>
-                    <Image Stretch="Uniform" Width="500" Name="ImagePreview" Margin="0 20 0 30" />
-                    <Button Content="Crear" Click="Submit_Click" />
                 </StackPanel>
-            </StackPanel>
-        </ScrollViewer>
+            </ScrollViewer>
+        </StackPanel>
     </Grid>
 </Page>
