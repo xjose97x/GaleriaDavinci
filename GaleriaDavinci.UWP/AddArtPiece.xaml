@@ -10,7 +10,7 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <StackPanel>
+        <StackPanel Name="mypanel">
             <StackPanel>
                 <Button x:Name="BackButton" Click="BackButton_Click"
                         Style="{StaticResource NavigationBackButtonNormalStyle}"
@@ -18,7 +18,7 @@
                         ToolTipService.ToolTip="Back">
                 </Button>
             </StackPanel>
-            <ScrollViewer>
+            <ScrollViewer VerticalScrollMode="Enabled" Height="{Binding ElementName=mypanel, Path=ActualHeight}">
                 <StackPanel HorizontalAlignment="Center">
                     <TextBlock Text="Agregar obra de arte" FontWeight="Bold" FontSize="50" />
                     <StackPanel Margin="0 50 0 50">
