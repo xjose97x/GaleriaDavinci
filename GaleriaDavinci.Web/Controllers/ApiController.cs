@@ -93,11 +93,9 @@ namespace GaleriaDavinci.Web.Controllers
             {
                 return NotFound();
             }
-            string authorEmail = "joseignacioescudero97@hotmail.com";
-
-            string subject = $"Alguien esta interesado en {artPiece.Name}";
-            string content = $"Un visitante cuyo correo es {dto.BuyerEmail}, desea comprar su obra. Por favor llamenos si desea obtener mas informacion";
-            await _emailService.SendEmail(authorEmail, subject, content);
+            string subject = $"Proceso de compra de {artPiece.Name} ha inicializado";
+            string content = $"Hola, te escribimos de Galeria Davinci para informarte que nos pondremos en contacto con el autor de la obra {artPiece.Name} para informale tu intencion de compra.\n ¡Gracias por preferirnos!";
+            await _emailService.SendEmail(dto.BuyerEmail, subject, content);
             return Ok();
         }
 

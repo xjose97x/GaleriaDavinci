@@ -11,6 +11,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -68,8 +69,12 @@ namespace GaleriaDavinci.UWP {
             Frame.Navigate(typeof(EditArtPiece), artPiece);
         }
 
-        private void Button_Click_1(object sender, RoutedEventArgs e) {
-
+        private async void Delete_Click(object sender, RoutedEventArgs e)
+        {
+            await galleryApiService.DeleteArtPiece(artPiece.ID);
+            var successDialog = new MessageDialog("Eliminado con exito!", "Alerta");
+            await successDialog.ShowAsync();
+            App.TryGoBack();
         }
     }
 }

@@ -66,7 +66,7 @@
                                 </TextBox>
                             </StackPanel>
                             <Button Click="Button_Click">Editar</Button>
-                            <Button Click="Button_Click_1">Eliminar</Button>
+                            <Button Click="Delete_Click">Eliminar</Button>
                         </StackPanel>
                     </StackPanel>
                 </StackPanel>

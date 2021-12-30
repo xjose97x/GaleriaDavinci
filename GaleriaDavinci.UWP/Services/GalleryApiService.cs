@@ -111,7 +111,7 @@ namespace GaleriaDavinci.UWP.Services
 
         public async Task DeleteArtPiece(int id)
         {
-            HttpResponseMessage response = await httpClient.DeleteAsync($"GalleryItems/${id}");
+            HttpResponseMessage response = await httpClient.DeleteAsync($"GalleryItems/{id}");
 
             if (!response.IsSuccessStatusCode)
             {
