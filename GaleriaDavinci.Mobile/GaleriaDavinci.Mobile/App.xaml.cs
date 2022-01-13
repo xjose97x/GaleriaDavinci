@@ -12,8 +12,8 @@ namespace GaleriaDavinci.Mobile
         public App()
         {
             InitializeComponent();
-
             DependencyService.Register<MockDataStore>();
+            DependencyService.Register<IGalleryApiService, GalleryApiService>();
             MainPage = new AppShell();
         }
 

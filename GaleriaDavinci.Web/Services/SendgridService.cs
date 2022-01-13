@@ -35,7 +35,6 @@ namespace GaleriaDavinci.Web.Services
             }
 
             var result = await response.Body.ReadAsStringAsync();
-            int x = 4;
         }
     }
 }
