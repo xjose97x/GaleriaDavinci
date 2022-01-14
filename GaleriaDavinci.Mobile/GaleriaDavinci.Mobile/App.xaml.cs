@@ -1,8 +1,5 @@
 ﻿using GaleriaDavinci.Mobile.Services;
-using GaleriaDavinci.Mobile.Views;
-using System;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
 
 namespace GaleriaDavinci.Mobile
 {

@@ -19,22 +19,10 @@ namespace GaleriaDavinci.Mobile.Services
         {
             httpClient = new HttpClient()
             {
-                BaseAddress = new Uri("http://10.0.2.2:14097/api/")
+                BaseAddress = new Uri("http://localhost:14097/api/")
             };
             httpClient.DefaultRequestHeaders.Clear();
             httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
-        }
-
-        private HttpClientHandler GetInsecureHandler()
-        {
-            HttpClientHandler handler = new HttpClientHandler();
-            handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) =>
-            {
-                if (cert.Issuer.Equals("CN=localhost"))
-                    return true;
-                return errors == System.Net.Security.SslPolicyErrors.None;
-            };
-            return handler;
         }
 
         public async Task<PaginatedResult<ArtPieceDto>> GetArtPieces(int page = 1, int size = 6, string search = null)
