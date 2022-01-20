@@ -8,12 +8,22 @@
     <ContentPage.BindingContext>
         <vm:GalleryViewModel />
     </ContentPage.BindingContext>
+
+    <Grid>
+        <Label Text="{Binding Title}"></Label>
+        <ScrollView>
+            <CollectionView ItemsSource="{Binding GalleryItems}"
+                        ItemsLayout="VerticalGrid, 2">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <StackLayout>
+                            <Image Source="{Binding Image}" HeightRequest="200" WidthRequest="200"></Image>
+                            <Label Text="{Binding Name}"></Label>
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </ScrollView>
+    </Grid>
     
-    <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
-    </ContentPage.Content>
 </ContentPage>
