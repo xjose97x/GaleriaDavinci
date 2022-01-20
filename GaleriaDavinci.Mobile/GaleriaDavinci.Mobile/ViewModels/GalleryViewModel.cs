@@ -1,5 +1,6 @@
 ﻿using GaleriaDavinci.Mobile.Models;
 using GaleriaDavinci.Mobile.Services;
+using GaleriaDavinci.Mobile.Views;
 using GaleriaDavinci.Shared.Dto;
 using System;
 using System.Collections.Generic;
@@ -12,8 +13,8 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace GaleriaDavinci.Mobile.ViewModels {
-    public class GalleryViewModel : INotifyPropertyChanged {
-        
+    public class GalleryViewModel : INotifyPropertyChanged
+    {
         public IGalleryApiService GalleryApiService { get; }
 
         string title = string.Empty;
@@ -38,9 +39,20 @@ namespace GaleriaDavinci.Mobile.ViewModels {
             }
         }
 
-        public GalleryViewModel() {
+
+        public Command<int> NavigateToItem { get; }
+
+        public GalleryViewModel()
+        {
             GalleryApiService = DependencyService.Get<IGalleryApiService>();
             Title = "Galeria Davinci";
+
+            NavigateToItem = new Command<int>(NavigateToGalleryItem);
+        }
+
+        public async void NavigateToGalleryItem(int id)
+        {
+            await Shell.Current.GoToAsync($"{nameof(GalleryItemPage)}?id={id}");
         }
 
         #region INotifyPropertyChanged

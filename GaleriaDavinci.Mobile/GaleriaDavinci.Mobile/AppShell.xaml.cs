@@ -1,4 +1,5 @@
-﻿using Xamarin.Forms;
+﻿using GaleriaDavinci.Mobile.Views;
+using Xamarin.Forms;
 
 namespace GaleriaDavinci.Mobile
 {
@@ -7,9 +8,7 @@ namespace GaleriaDavinci.Mobile
         public AppShell()
         {
             InitializeComponent();
-            //Routing.RegisterRoute(nameof(ItemDetailPage), typeof(ItemDetailPage));
-            //Routing.RegisterRoute(nameof(NewItemPage), typeof(NewItemPage));
+            Routing.RegisterRoute(nameof(GalleryItemPage), typeof(GalleryItemPage));
         }
-
     }
 }

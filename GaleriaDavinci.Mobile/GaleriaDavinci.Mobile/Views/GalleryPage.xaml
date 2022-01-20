@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="GaleriaDavinci.Mobile.Views.GalleryPage"
              xmlns:vm="clr-namespace:GaleriaDavinci.Mobile.ViewModels"
+             x:Name="Root"
              Title="{Binding Title}">
     
     <ContentPage.BindingContext>
@@ -17,7 +18,11 @@
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
                         <StackLayout>
-                            <Image Source="{Binding Image}" HeightRequest="200" WidthRequest="200"></Image>
+                            <Image Source="{Binding Image}" HeightRequest="200" WidthRequest="200">
+                                <Image.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding Source={x:Reference Root}, Path=BindingContext.NavigateToItem }" CommandParameter="{Binding ID}" NumberOfTapsRequired="2" /> 
+                                </Image.GestureRecognizers>
+                            </Image>
                             <Label Text="{Binding Name}"></Label>
                         </StackLayout>
                     </DataTemplate>
