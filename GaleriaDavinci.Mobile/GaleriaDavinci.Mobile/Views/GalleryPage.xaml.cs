@@ -18,43 +18,29 @@ namespace GaleriaDavinci.Mobile.Views
     {
         public int Page = 1;
         public int Size = 6;
-        //private readonly IGalleryApiService _galleryApiService;
+        private readonly GalleryViewModel _vm;
 
         public GalleryPage()
         {
             InitializeComponent();
-            //GalleryViewModel vm = BindingContext as GalleryViewModel;
-            //_galleryApiService = vm.GalleryApiService;
+            _vm = BindingContext as GalleryViewModel;
         }
 
-        //protected override async void OnAppearing() {
-        //    base.OnAppearing();
-        //    await RefreshGallery();
-        //}
+        protected override async void OnAppearing()
+        {
+            base.OnAppearing();
+            await RefreshGallery();
+        }
 
-        //private async Task RefreshGallery(string search = null) {
-
-        //    flexLayout.Children.Clear();
-
-        //    var paginatedArtPieces = await _galleryApiService.GetArtPieces(Page, Size, search);
-
-        //    foreach (ArtPieceDto ap in paginatedArtPieces.Result) {
-        //        //Convert base64 to Stream
-        //        var byteArray = Convert.FromBase64String(ap.Url.Split(',').Last());
-        //        Stream stream = new MemoryStream(byteArray);
-
-        //        Image image = new Image() {
-        //            Source = ImageSource.FromStream(() => stream),
-        //            WidthRequest = 200,
-        //            HeightRequest = 200
-        //        };
-
-        //        flexLayout.Children.Add(image);
-        //    }
-
-        //}
-
+        private async Task RefreshGallery(string search = null)
+        {
+            var paginatedArtPieces = await _vm.GalleryApiService.GetArtPieces(Page, Size, search);
+            var source = new List<GalleryItem>();
+            foreach (ArtPieceDto ap in paginatedArtPieces.Result)
+            {
+                source.Add(new GalleryItem(ap, Helpers.Base64ToImage(ap.Url)));
+            }
+            _vm.GalleryItems = new ObservableCollection<GalleryItem>(source);
+        }
     }
-
-
 }

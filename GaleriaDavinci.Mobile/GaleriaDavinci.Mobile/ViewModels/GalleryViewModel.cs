@@ -13,12 +13,8 @@ using Xamarin.Forms;
 
 namespace GaleriaDavinci.Mobile.ViewModels {
     public class GalleryViewModel : INotifyPropertyChanged {
-        public int Page = 1;
-        public int Size = 6;
         
         public IGalleryApiService GalleryApiService { get; }
-
-        private readonly IList<GalleryItem> source;
 
         string title = string.Empty;
         public string Title {
@@ -45,20 +41,6 @@ namespace GaleriaDavinci.Mobile.ViewModels {
         public GalleryViewModel() {
             GalleryApiService = DependencyService.Get<IGalleryApiService>();
             Title = "Galeria Davinci";
-
-            source = new List<GalleryItem>();
-            PopulateGalleryItemCollection();
-        }
-
-        private async void PopulateGalleryItemCollection(string search = null) {
-
-            var paginatedArtPieces = await GalleryApiService.GetArtPieces(Page, Size, search);
-
-            foreach (ArtPieceDto ap in paginatedArtPieces.Result) {
-                source.Add(new GalleryItem(ap, Helpers.Base64ToImage(ap.Url)));
-            }
-
-            galleryItems = new ObservableCollection<GalleryItem>(source);
         }
 
         #region INotifyPropertyChanged
