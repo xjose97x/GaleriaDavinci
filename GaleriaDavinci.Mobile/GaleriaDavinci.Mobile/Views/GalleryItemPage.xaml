@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="GaleriaDavinci.Mobile.Views.GalleryItemPage"
              xmlns:vm="clr-namespace:GaleriaDavinci.Mobile.ViewModels"
+             BackgroundColor="#f3f7f8"
              Title="{Binding Title}">
 
     <ContentPage.BindingContext>
@@ -10,10 +11,49 @@
     </ContentPage.BindingContext>
 
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
+        <ScrollView>
+            <StackLayout>
+                <Image Source="{Binding ArtPieceImage}" Margin="0, 20, 0, 20"></Image>
+                <StackLayout Margin="15, 0">
+                    <Frame>
+                        <StackLayout>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="Título: " TextColor="Black"></Label>
+                                <Label Text="{Binding Title}"></Label>
+                            </StackLayout>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="Autor: " TextColor="Black"></Label>
+                                <Label Text="{Binding Author}"></Label>
+                            </StackLayout>
+                            <StackLayout Orientation="Horizontal">
+                                <Label Text="Año de creación: " TextColor="Black"></Label>
+                                <Label Text="{Binding Year}"></Label>
+                            </StackLayout>
+                            <Label Text="{Binding Description}"></Label>
+                        </StackLayout>
+                    </Frame>
+
+                    <Label Text="Reviews" Margin="15, 0" FontSize="25"></Label>
+                    <CollectionView ItemsSource="{Binding Reviews}">
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <Frame Padding="20, 10, 20, 10">
+                                    <StackLayout>
+                                        <Label Text="{Binding AuthorName}" TextColor="Black"/>
+                                        <StackLayout Orientation="Horizontal">
+                                            <Label Text="Puntuación: "/>
+                                            <Label Text="{Binding Value}"/>
+                                            <Label Text="/ 5"/>
+                                        </StackLayout>
+                                        <Label Text="{Binding Comment}"/>
+                                    </StackLayout>
+                                </Frame>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </StackLayout>
+                
+            </StackLayout>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>
